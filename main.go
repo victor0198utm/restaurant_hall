@@ -243,7 +243,7 @@ func send_order(the_order models.Order) {
 		log.Fatal(err_marshall)
 	}
 
-	resp, err := http.Post("http://localhost:8001/order", "application/json",
+	resp, err := http.Post("http://kitchen:8001/order", "application/json",
 		bytes.NewBuffer(json_data))
 	if err != nil {
 		log.Fatal(err)
