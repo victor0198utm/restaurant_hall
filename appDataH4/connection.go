@@ -1,7 +1,7 @@
 package appData
 
 func GetKitchenAddress() string {
-	return "kitchen_4:8021"
+	return "network_kitchen4_1:8024"
 }
 
 func GetHallPort() string {
