@@ -5,9 +5,9 @@ func GetRestaurantId() int {
 }
 
 func GetRestaurantName() string {
-	return "McDonald's"
+	return "Oliva"
 }
 
 func GetRestaurantAddress() string {
-	return "localhost:8031"
+	return "hall_1:8031"
 }

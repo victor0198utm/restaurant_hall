@@ -13,6 +13,7 @@ import (
 
 	"github.com/gorilla/mux"
 	"github.com/victor0198utm/restaurant_hall/appData"
+	appData "github.com/victor0198utm/restaurant_hall/appDataH1"
 	"github.com/victor0198utm/restaurant_hall/models"
 )
 
@@ -45,7 +46,7 @@ func register() {
 		log.Fatal(err_marshall)
 	}
 
-	resp, err := http.Post("http://localhost:8011/register", "application/json",
+	resp, err := http.Post("http://food_ordering:8011/register", "application/json",
 		bytes.NewBuffer(json_data))
 	if err != nil {
 		log.Fatal(err)
@@ -279,8 +280,8 @@ func send_order(the_order models.Order) {
 		log.Fatal(err_marshall)
 	}
 
-	// resp, err := http.Post("http://"+appData.GetKitchenAddress()+"/order", "application/json",
-	resp, err := http.Post("http://localhost:8021/order", "application/json",
+	resp, err := http.Post("http://"+appData.GetKitchenAddress()+"/order", "application/json",
+		// resp, err := http.Post("http://localhost:8021/order", "application/json",
 		bytes.NewBuffer(json_data))
 	if err != nil {
 		log.Fatal(err)
@@ -483,7 +484,7 @@ func handleRequests() {
 	myRouter.HandleFunc("/distribution", post_dishes).Methods("POST")
 	myRouter.HandleFunc("/v2/order", make_order).Methods("POST")
 	myRouter.HandleFunc("/v2/order/{id}", return_order).Methods("GET")
-	log.Fatal(http.ListenAndServe(":8031", myRouter))
+	log.Fatal(http.ListenAndServe(":"+appData.GetHallPort(), myRouter))
 }
 
 func main() {

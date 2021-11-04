@@ -1,7 +1,7 @@
 package appData
 
 func GetRestaurantId() int {
-	return 1
+	return 3
 }
 
 func GetRestaurantName() string {

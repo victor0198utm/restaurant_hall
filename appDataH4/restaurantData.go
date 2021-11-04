@@ -1,11 +1,11 @@
 package appData
 
 func GetRestaurantId() int {
-	return 1
+	return 4
 }
 
 func GetRestaurantName() string {
-	return "McDonald's"
+	return "KFC"
 }
 
 func GetRestaurantAddress() string {
