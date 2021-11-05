@@ -7,3 +7,7 @@ func GetKitchenAddress() string {
 func GetHallPort() string {
 	return "8031"
 }
+
+func RegisterToFoodOrdering() bool {
+	return true
+}

@@ -1,13 +1,13 @@
 package appData
 
 func GetKitchenAddress() string {
-	return "network_kitchen2_1:8022"
+	return "localhost:8021"
 }
 
 func GetHallPort() string {
-	return "8032"
+	return "8031"
 }
 
 func RegisterToFoodOrdering() bool {
-	return true
+	return false
 }

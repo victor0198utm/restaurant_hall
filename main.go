@@ -240,7 +240,13 @@ func build_order(order_identifier int, table_id int, waiter_id int) models.Order
 	// client is making order, 2 min
 	time.Sleep(2000 * time.Millisecond)
 
-	n_items := rand.Intn(3) + 1
+	n_items := 1
+	number := rand.Intn(10) + 1
+	if number > 4 && number <= 8 {
+		n_items = 2
+	} else if number > 8 {
+		n_items = 3
+	}
 	items := []int{}
 	for i := 0; i < n_items; i++ {
 		items = append(items, appData.GetDish(rand.Intn(9)).Dish_id)
@@ -488,18 +494,20 @@ func handleRequests() {
 func main() {
 
 	// Register restaurant after 30s
-	w.Add(1)
-	go register()
+	if appData.RegisterToFoodOrdering() {
+		w.Add(1)
+		go register()
+	}
 
-	n_tables := 5
+	n_tables := appData.XTables()
 	// Make tables
 	build_tables(n_tables)
 
 	// Initialize the mechanism of table occupation.
 	table_occupation(n_tables)
 
-	// Initialize 3 waiters.
-	for i := 0; i < 3; i++ {
+	// Initialize waiters.
+	for i := 0; i < appData.XWaiters(); i++ {
 		w.Add(1)
 		go waiter(i)
 	}
