@@ -1,9 +1,9 @@
 package appData
 
 func XTables() int {
-	return 10
+	return 7
 }
 
 func XWaiters() int {
-	return 1
+	return 2
 }

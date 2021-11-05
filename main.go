@@ -82,26 +82,29 @@ func check_dish(table *models.Table, dish models.Kitchen_response) bool {
 func table_occupation(n_tables int) {
 	// make an occupation thread for each table
 	for i := 0; i < n_tables; i++ {
+		// wait for about 1 min to start occupation
+		time.Sleep(time.Duration((rand.Intn(400) + 800)) * time.Millisecond)
 		w.Add(1)
-		go occupy(n_tables)
+		go occupy(i)
 	}
 }
 
-func occupy(n_tables int) {
+func occupy(table int) {
+	free := false
 	for {
-		// wait 1.5-2.5 min before adding client
-		time.Sleep(time.Duration((rand.Intn(1000) + 1500)) * time.Millisecond)
+		// wait 2-3 min to occupy after table became free
+		time.Sleep(time.Duration((rand.Intn(1000) + 2000)) * time.Millisecond)
 
-		m.Lock()
-
-		// add to random table
-		i := rand.Intn(n_tables)
-		if tables[i].State == "free" {
-			tables[i].State = "WO"
-			fmt.Println("Tables:", tables, "\nNew client to table", i, "\n")
+		if free {
+			free = false
+			tables[table].State = "WO"
+			fmt.Println("Tables:", tables, "\nNew client to table", table, "\n")
 		}
 
-		m.Unlock()
+		if tables[table].State == "free" {
+			free = true
+		}
+
 	}
 	w.Done()
 }
@@ -229,7 +232,7 @@ func waiter(waiter_id int) {
 		}
 
 		// waiter is resting (to not spend cpu cycles)
-		time.Sleep(1 * time.Millisecond)
+		time.Sleep(200 * time.Millisecond)
 	}
 	w.Done()
 }

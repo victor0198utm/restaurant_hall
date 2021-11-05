@@ -9,5 +9,5 @@ func GetRestaurantName() string {
 }
 
 func GetRestaurantAddress() string {
-	return "localhost:8031"
+	return "localhost:8002"
 }
